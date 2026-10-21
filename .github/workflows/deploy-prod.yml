@@ -19,8 +19,16 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
+          envs: BREVO_API_KEY,BREVO_SENDER_EMAIL,JIHAN_EMAIL
           script: |
             set -e
+
+            # Write .env from GitHub secrets
+            cat > /home/ec2-user/jihan-mihwar.env << EOF
+            BREVO_API_KEY=$BREVO_API_KEY
+            BREVO_SENDER_EMAIL=$BREVO_SENDER_EMAIL
+            JIHAN_EMAIL=$JIHAN_EMAIL
+            EOF
 
             # Pull latest code
             cd /home/ec2-user/jihan-mihwar
