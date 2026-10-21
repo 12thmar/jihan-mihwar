@@ -23,13 +23,6 @@ jobs:
           script: |
             set -e
 
-            # Write .env from GitHub secrets
-            cat > /home/ec2-user/jihan-mihwar.env << EOF
-            BREVO_API_KEY=$BREVO_API_KEY
-            BREVO_SENDER_EMAIL=$BREVO_SENDER_EMAIL
-            JIHAN_EMAIL=$JIHAN_EMAIL
-            EOF
-
             # Pull latest code
             cd /home/ec2-user/jihan-mihwar
             git pull origin main
@@ -43,7 +36,9 @@ jobs:
             docker run -d \
               --name jihan-mihwar \
               --restart unless-stopped \
-              --env-file /home/ec2-user/jihan-mihwar.env \
+              -e BREVO_API_KEY="$BREVO_API_KEY" \
+              -e BREVO_SENDER_EMAIL="$BREVO_SENDER_EMAIL" \
+              -e JIHAN_EMAIL="$JIHAN_EMAIL" \
               -p 8080:8080 \
               jihan-mihwar
 
