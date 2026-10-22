@@ -13,6 +13,23 @@ jobs:
       cancel-in-progress: true
 
     steps:
+      - name: Verify secrets are set
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          BREVO_SENDER_EMAIL: ${{ secrets.BREVO_SENDER_EMAIL }}
+          JIHAN_EMAIL: ${{ secrets.JIHAN_EMAIL }}
+        run: |
+          missing=()
+          [ -z "$BREVO_API_KEY" ]     && missing+=("BREVO_API_KEY")
+          [ -z "$BREVO_SENDER_EMAIL" ] && missing+=("BREVO_SENDER_EMAIL")
+          [ -z "$JIHAN_EMAIL" ]       && missing+=("JIHAN_EMAIL")
+          if [ ${#missing[@]} -gt 0 ]; then
+            echo "Missing secrets: ${missing[*]}"
+            echo "Go to GitHub repo Settings -> Secrets -> Actions and add them."
+            exit 1
+          fi
+          echo "All 3 Brevo secrets are set"
+
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
         env:
