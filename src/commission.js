@@ -10,9 +10,8 @@ function brevoHeaders() {
 }
 
 function jihanHtml(d) {
-  const row = (label, val) => val
-    ? `<tr><td style="padding:6px 12px 6px 0;color:#888;font-size:13px;white-space:nowrap">${label}</td><td style="padding:6px 0;font-size:14px;color:#1c1408">${val}</td></tr>`
-    : '';
+  const row = (label, val) =>
+    `<tr><td style="padding:6px 12px 6px 0;color:#888;font-size:13px;white-space:nowrap">${label}</td><td style="padding:6px 0;font-size:14px;color:${val ? '#1c1408' : '#bbb'}">${val || '—'}</td></tr>`;
   return `
 <!DOCTYPE html><html><body style="font-family:Georgia,serif;background:#f9f4ea;margin:0;padding:24px">
 <div style="max-width:560px;margin:0 auto;background:#fff;border:1px solid #e2d5b8;padding:32px">
