@@ -24,6 +24,7 @@ app.use(express.json());
 
 app.get('/health', (_req, res) => res.json({ ok: true }));
 
-app.post('/commission', handleCommission);
+app.post('/commission',     handleCommission);
+app.post('/api/commission', handleCommission);
 
 app.listen(PORT, () => console.log(`jihan-mihwar listening on :${PORT}`));
