@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import { handleCommission } from './commission.js';
 import { handleReserve } from './reserve.js';
+import { handleContact } from './contact.js';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -29,5 +30,7 @@ app.post('/commission',     handleCommission);
 app.post('/api/commission', handleCommission);
 app.post('/reserve',        handleReserve);
 app.post('/api/reserve',    handleReserve);
+app.post('/contact',        handleContact);
+app.post('/api/contact',    handleContact);
 
 app.listen(PORT, () => console.log(`jihan-mihwar listening on :${PORT}`));
